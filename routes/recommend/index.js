@@ -4,6 +4,6 @@ const keyDBController = require('../../controllers/recommend/keyDBController');
 const recController = require('../../controllers/recommend/recController');
 
 router.post('/keyDB', keyDBController.keyDB);
-router.get('/prefer', recController.prefer);
+router.put('/prefer', recController.prefer);
 
 module.exports = router;
