@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 const keyword = require('./keyword');
-const Schema = mongoose.Schema
 
 const userSchema = new Schema({
   // 이메일
@@ -74,15 +74,14 @@ const userSchema = new Schema({
   ],
 
   // 찜 목록
-  like: [
-    {
-      likeGoods: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Goods',
-      },
-    },
-  ],
+  like: [{ likeGoods: { type: mongoose.Schema.Types.ObjectId, ref: 'Goods' } }],
 
+  // 장바구니
+  cart: [{ cartGoods: { type: mongoose.Schema.Types.ObjectId, ref: 'Goods' } }],
+
+  // 주문서 주문했던 아이디 값을 넣을 것.
+  order: [{ cartGoods: { type: mongoose.Schema.Types.ObjectId, ref: 'Order' } }],
+  
   // 관심사
   keyword: keyword,
 

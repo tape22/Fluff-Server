@@ -1,4 +1,4 @@
-const Goods = require('../../models/goods');
+let Goods = require('../../models/Goods');
 
 /*
   GET /goods/thumbnail
@@ -8,13 +8,13 @@ exports.thumbnail = async (req, res) => {
     const thumbnail = 
       await Goods.find()
         .sort('createAt')
-        .select('goodsName mainImg prise')
+        .select('goodsName sellerName mainImg prise')
         .limit(30);
     
     console.log(`제품 리스트를 성공적으로 load하였습니다!`);
     res.json({
       code: sc.OK,
-      json: au.successTrue(rm.ITEM_LIST_SUCESS, thumbnail)
+      json: au.successTrue(rm.ITEM_LIST_SUCCESS, thumbnail)
     });
     
   } catch (err) {

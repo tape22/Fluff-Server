@@ -1,18 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
-// controller
-const joinController = require('../../controllers/users/joinController');
-const localLoginController = require('../../controllers/users/localLoginController');
-
-// middleware
-const authMiddleware = require('../../middleware/authMiddleware');
+const { signUpController, loginController } = require('../../controllers/auth');
 
 // join
-router.post('/join', joinController.join);
-router.get('/emailAuthorization', joinController.emailAuthorization);
+router.post('/signUp', signUpController.signUp);
+router.get('/emailAuthorization', signUpController.emailAuth);
 
-// login
-router.post('/localLogin', authMiddleware, localLoginController.login);
+// locaLogin
+router.post('/login', loginController.login);
 
 module.exports = router;
