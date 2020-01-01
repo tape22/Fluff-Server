@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const options = {
   algorithm: 'HS256',
-  expiresIn: '20h',
+  expiresIn: '40h',
   issuer: 'ooeunz'
 };
 
@@ -53,3 +53,4 @@ module.exports = {
     return jwt.sign(payload, process.env.JWT_SECRET, options); 
   }
 };
+

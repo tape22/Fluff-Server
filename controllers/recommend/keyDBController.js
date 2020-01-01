@@ -6,16 +6,16 @@ POST | recommend/keyDB
     keyword : cnt
 } * 30개
 */
+
 let User = require('../../models/User');
 const { au,sc,rm } = require('../../modules/utils');
 
 exports.keyDB = async (req, res) => {
-  const userEmail = req.decoded.email;
+  const userId = req.decoded._id;
   const getKeyList = req.body;
-  
-  try {
-    let user = await User.findOne({ email: userEmail }); // id에 해당하는 유저의 정보모델
 
+  try {
+    let user = await User.findOne({ _id : userId }); // id에 해당하는 유저의 정보모델
     if (user.length === 0) { 
       return res.json({
         code: sc.BAD_REQUEST,
@@ -27,7 +27,7 @@ exports.keyDB = async (req, res) => {
 
       res.json({
         code: sc.OK,
-        json: au.successTrue(rm.DB_KEYWORD_UPDATE_SUCCESS) // result 보내주면 좋긴 함.
+        json: au.successTrue(rm.DB_KEYWORD_UPDATE_SUCCESS,user.keyword) 
       });
     };
   } catch (err) {
@@ -38,3 +38,14 @@ exports.keyDB = async (req, res) => {
     });
   }
 };
+
+
+
+
+
+
+
+
+
+
+

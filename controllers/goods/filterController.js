@@ -1,6 +1,8 @@
 let Goods = require('../../models/Goods');
+const { au, sc, rm } = require('../../modules/utils');
 
 /*
+  상품 필터링하기
   POST /goods/filter
   {
     color: 'red',
@@ -17,7 +19,7 @@ exports.filter = async (req, res) => {
         .where('category').equals(category)
         .where('size').equals(size)
         .sort('createAt')
-        .select('_id goodsName mainImg prise')
+        .select('_id goodsName img prise')
         .limit(30);
 
     res.json({

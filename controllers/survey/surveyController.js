@@ -1,36 +1,32 @@
-// test 코드
-const { keyword } = require('../../models');
+let Survey = require('../../models/Survey');
 const { au, sc, rm } = require('../../modules/utils');
-//const keyword = require('../../models/keyword');
-//const imgUrl = require('../../models/items');
-//exports.ss = async() => {  //test 뺄까?
-exports.ss = async (req, res) => {
-  try{
-    const test = {// = await survey.create({
-      data : [{ 
-        imageUrl:  'url',
-        keyword:[ 
-          "chic", 
-          "modern",
-          "lovely"
-        ]}, { 
-        imageUrl:  'url1',
-        keyword:[ 
-          "chic1", 
-          "modern1",
-          "lovely1"
-        ]}, { 
-        imageUrl:  'url2',
-        keyword:[ 
-          "chic2", 
-          "modern2",
-          "lovely2"
-        ]},
-    ]};
-    res.json(test);
-    console.log(test);
-    }catch(err){
-      console.log(err);
-      res.status(sc.INTERNAL_SERVER_ERROR).send(au.successFalse(rm.INTERNAL_SERVER_ERROR));  
+
+/* 취향분석
+  GET |/survey
+*/
+exports.getSurvey = async (req, res) => {
+  try {
+    const VERSION_1_0_1 = '5e0ade0a5d46e12961bd9cfc'
+
+    const result = await Survey.findById(VERSION_1_0_1);
+    if (!result) {
+      console.log('취향분석 이미지가 존재하지 않습니다.');
+      res.json({
+        code: sc.BAD_REQUEST,
+        json: au.successFalse(rm.SURVEY_LIST_NONE),
+      }); 
+    }
+    console.log(`취향분석 이미지를 성공적으로 불러왔습니다.`);
+    res.json({
+      code: sc.OK,
+      json: au.successTrue(rm.SURVEY_SHOW_SUCCESS, result)
+    });
+
+  } catch (err) {
+    console.log(`survey list show failed error : ${err}`)
+    res.json({
+      code: sc.BAD_REQUEST,
+      json: au.successFalse(rm.SURVEY_SHOW_FAIL)
+    });
   }
-};
+}
